@@ -37,8 +37,8 @@ export default class App extends Component<Props, State> {
   componentDidMount() {
     this.tryToGetLocation();
     this.getEmployees();
-    setInterval(this.tryToGetLocation, 60000);
-    setInterval(this.getEmployees, 60000);
+    setInterval(this.tryToGetLocation, 5000);
+    setInterval(this.getEmployees, 5000);
   }
 
   tryToGetLocation() {

@@ -32,7 +32,8 @@ export const register = (userName) => {
 		name: userName,
 		id: DeviceInfo.getUniqueID(),
 	};
-	appFetch('/user.php', 'POST', body).then(response => {console.log('user.php: ', response, ' ', new Date())})
+	appFetch('/user.php', 'POST', body)
+		.then(response => {console.log('POST user.php: ', response, ' ', new Date())})
 };
 
 export const sendLocation = (lattitude, longitude) => {
@@ -41,7 +42,8 @@ export const sendLocation = (lattitude, longitude) => {
 		lattitude,
 		longitude
 	};
-	appFetch('/location.php','POST', body).then(response => {console.log('location.php: ', response, ' ', new Date())})
+	appFetch('/location.php','POST', body)
+		.then(response => {console.log('POST location.php: ', response, ' ', new Date())})
 };
 
 export const getLatestPositions = () => {
