@@ -23,11 +23,6 @@ class Map extends Component<Props> {
 
     this.isAndroid = Platform.OS === 'android';
 
-    this.state = {
-      latitude: this.props.coordinate.latitude,
-      longitude: this.props.coordinate.longitude
-    };
-
     this.polygon = [
       { latitude: 60.168994, longitude: 24.934275 },
       { latitude: 60.169366, longitude: 24.935413 },
@@ -45,17 +40,21 @@ class Map extends Component<Props> {
         employee={item}
         polygon={this.polygon}
         onEmployeeCheck={coordinates => {
-          this.setState({
-            latitude: coordinates.latitude,
-            longitude: coordinates.longitude
-          });
+          this.map.animateToRegion(
+            {
+              latitude: coordinates.latitude,
+              longitude: coordinates.longitude,
+              latitudeDelta: 0.04,
+              longitudeDelta: 0.05
+            },
+            1000
+          );
         }}
       />
     );
   }
 
   render() {
-    console.log(this.props.employees);
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -70,8 +69,8 @@ class Map extends Component<Props> {
           }}
           provider={this.isAndroid ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
           initialRegion={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude,
+            latitude: this.props.coordinate.latitude,
+            longitude: this.props.coordinate.longitude,
             latitudeDelta: 0.04,
             longitudeDelta: 0.05
           }}
