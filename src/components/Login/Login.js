@@ -6,8 +6,12 @@ import {
     Button,
     TextInput,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    Image,
+    KeyboardAvoidingView
   } from 'react-native';
+
+  import imageLogo from "../../assets/images/logo.png";
 
 type Props = {
     onPress: Function
@@ -25,9 +29,10 @@ class Login extends Component<Props> {
 
     render() {
         return (
-        <View style={{flex: 1, marginHorizontal: 36, flexDirection: 'column', justifyContent: 'center'}}>
+        <View style={{flex: 1, paddingHorizontal: 36, flexDirection: 'column', justifyContent: 'center', backgroundColor: '#FFFFFF'}}>
+            <Image source={imageLogo} style={styles.logo} />
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <Text style={styles.titleText}>Big Brother App</Text>
+              <Text style={styles.titleText}>Big Brother</Text>
             </View>
             <View style={{flex: 1}}>
               <TextInput
@@ -36,7 +41,7 @@ class Login extends Component<Props> {
                 onChangeText={(userName) => this.setState({userName})}
               />
               <TouchableOpacity style={styles.container} onPress={() => this.props.onPress(this.state.userName)}>
-                <Text styles={styles.text}>Continue</Text>
+                <Text style={styles.text}>Continue</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -70,8 +75,14 @@ const styles = StyleSheet.create({
         titleText: {
         fontSize: 36,
         fontWeight: 'bold',
-        marginVertical: 120
-        }
+        marginBottom: 120
+        },
+        logo: {
+            flex: 1,
+            width: "100%",
+            resizeMode: "contain",
+            alignSelf: "center"
+          },
   });
 
   export default Login;
