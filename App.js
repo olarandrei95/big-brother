@@ -7,12 +7,15 @@ import { register, sendLocation, getLatestPositions } from './src/http';
 import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
+import Login from './src/components/Login';
+
 type Props = {};
 
 type State = {
 	employees : Array<Employee>,
 	latitude : 0,
-	longitude : 0
+	longitude : 0,
+  userRegistered: boolean
 };
 
 export default class App extends Component<Props, State> {
@@ -22,14 +25,10 @@ export default class App extends Component<Props, State> {
 
 		this.state = {
 			latitude: 0,
-			longitude: 0
+      longitude: 0,
+      employees: [],
+      userRegistered: false
 		};
-
-		this.state = {
-			employees: []
-		};
-
-		register();
 }
 
 componentDidMount() {
@@ -83,16 +82,24 @@ onLocationGranted()
 	);
 }
 
-render()
-{
-	return (
-		<Map
-			employees={this.state.employees}
-			coordinate={{
-				latitude: this.state.latitude || 0,
-				longitude: this.state.longitude || 0
-			}}
-		/>
-	);
-}
+  loginUser = (userName) => {
+    console.log("Login user");
+    this.setState({
+      userRegistered: true
+    });
+    register(userName);
+  }
+
+  render() {
+    return (
+      !this.state.userRegistered ? <Login onPress={this.loginUser}/> :
+      <Map
+        employees={this.state.employees}
+        coordinate={{
+          latitude: this.state.latitude || 0,
+          longitude: this.state.longitude || 0
+        }}
+      />
+    );
+  }
 }
