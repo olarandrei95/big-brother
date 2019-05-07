@@ -67,10 +67,11 @@ export default class App extends Component<Props, State> {
         coordinate: {
           latitude: Number(user.latitude),
           longitude: Number(user.longitude)
-        }
+        },
+		timestamp: user.timestamp
       }));
-
-			this.setState({ employees })
+		const sortedEmployees = employees.sort((a,b) => (b.timestamp > a.timestamp))
+		this.setState({ employees: sortedEmployees });
 		console.log('fetch employees ok: ', new Date());
 		});
 }
