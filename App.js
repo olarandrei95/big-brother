@@ -84,7 +84,7 @@ onLocationGranted()
 				longitude: position.coords.longitude
 			});
 			if(this.state.userRegistered) {
-				sendLocation(position.coords.longitude, position.coords.latitude);
+				sendLocation(position.coords.latitude, position.coords.longitude);
 			}
 		},
 		error => {

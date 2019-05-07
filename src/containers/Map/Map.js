@@ -52,7 +52,7 @@ class Map extends Component<Props> {
             left: 0
           }}
           provider={this.isAndroid ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
-          region={{
+          initialRegion={{
             latitude: this.props.coordinate.latitude,
             longitude: this.props.coordinate.longitude,
             latitudeDelta: 0.04,
