@@ -22,10 +22,8 @@ const appFetch = (endpoint, method, body) => {
 		.then(function(response) {
 			return response.json();
 		})
-		.then(function(myJson) {
-			console.log(JSON.stringify(myJson));
-		}).catch(e => {
-		console.error('error ', e);
+		.catch(e => {
+			console.log('error ', e);
 	})
 
 };
@@ -45,11 +43,11 @@ export const sendLocation = (lattitude, longitude) => {
 		lattitude,
 		longitude
 	};
-	// appFetch('/location.php','POST', body)
+	appFetch('/location.php','POST', body)
 };
 
 export const getLatestPositions = () => {
-	// appFetch('/locations/last.php','GET')
+	//return appFetch('/locations/last.php','GET')
 };
 
 
