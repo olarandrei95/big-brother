@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
-import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE, PROVIDER_DEFAULT, Polygon } from 'react-native-maps';
 import DeviceInfo from 'react-native-device-info';
 
 import type { Employee } from '../../types';
@@ -83,7 +83,19 @@ class Map extends Component<Props, State> {
 						}}
 						title={employee.name}
 					/>
-				))}
+        ))}
+        <Polygon
+          key={1}
+          coordinates={[
+            { latitude: 60.168994, longitude: 24.934275 },
+            { latitude: 60.169366, longitude: 24.935413 },
+            { latitude: 60.169089, longitude: 24.935797 },
+            { latitude: 60.168702, longitude: 24.934703 },
+          ]}
+          strokeColor="#F00"
+          fillColor="rgba(255,0,0,0.5)"
+          strokeWidth={1}
+        />
 			</MapView>
 		);
 	}
