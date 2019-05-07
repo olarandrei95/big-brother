@@ -54,8 +54,8 @@ export default class App extends Component<Props> {
   render() {
 	  const uniqueId = DeviceInfo.getUniqueID();
 	  return (
-		  <View style={styles.container}>
 			  <MapView
+				  style={{flex: 1}}
 				  provider={PROVIDER_GOOGLE}
 				  initialRegion={{
 					  latitude: 60.169346,
@@ -64,7 +64,6 @@ export default class App extends Component<Props> {
 					  longitudeDelta: 0.05
 				  }}
 			  />
-		  </View>
 	  );
   }
 }
