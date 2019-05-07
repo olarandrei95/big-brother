@@ -28,7 +28,7 @@ const appFetch = (endpoint, method, body) => {
 export const register = (userName) => {
 	console.log(DeviceInfo.getUniqueID());
 	const body = {
-		managerID: 123,
+		managerID: 12,
 		name: userName,
 		id: DeviceInfo.getUniqueID(),
 	};
@@ -45,7 +45,7 @@ export const sendLocation = (lattitude, longitude) => {
 };
 
 export const getLatestPositions = () => {
-	return appFetch('/locations/last.php?managerID=123','GET');
+	return appFetch('/locations/last.php?managerID=12','GET');
 };
 
 
