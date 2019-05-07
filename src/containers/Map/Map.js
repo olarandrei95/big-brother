@@ -14,12 +14,7 @@ type State = {
   longitude: 0
 };
 
-type Coordinate = {
-  latitude: number,
-  longitude: number
-};
-
-class Map extends Component<Props> {
+class Map extends Component<Props, State> {
   constructor(props) {
     super(props);
 
