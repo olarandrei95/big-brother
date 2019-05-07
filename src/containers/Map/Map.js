@@ -49,7 +49,6 @@ class Map extends Component<Props, State> {
 	onLocationGranted() {
 		Geolocation.getCurrentPosition(
 			position => {
-				console.log(position.coords.latitude + ' ' + position.coords.longitude);
 				this.setState({
 					latitude: position.coords.latitude,
 					longitude: position.coords.longitude
