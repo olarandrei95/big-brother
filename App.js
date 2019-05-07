@@ -38,8 +38,8 @@ componentDidMount() {
 
 	this.tryToGetLocation();
 	this.getEmployees();
-	setInterval(this.tryToGetLocation, 60000);
-	setInterval(this.getEmployees, 60000);
+	setInterval(this.tryToGetLocation, 10000);
+	setInterval(this.getEmployees, 10000);
 }
 
 tryToGetLocation() {
@@ -74,7 +74,8 @@ getEmployees() {
 				}
 			));
 
-			this.setState({ employees })
+			this.setState({ employees });
+			console.log('fetch employees ok: ', new Date());
 		});
 }
 
@@ -86,7 +87,9 @@ onLocationGranted()
 				latitude: position.coords.latitude,
 				longitude: position.coords.longitude
 			});
-			sendLocation(position.coords.longitude, position.coords.latitude);
+			if(this.state.userRegistered) {
+				sendLocation(position.coords.longitude, position.coords.latitude);
+			}
 		},
 		error => {
 			console.log(error.code, error.message);

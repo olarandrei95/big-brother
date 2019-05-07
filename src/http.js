@@ -13,9 +13,6 @@ const appFetch = (endpoint, method, body) => {
 		}
 	}
 	const url = `http://vecinulvirtual.ro/bigbrother${endpoint}`;
-	console.log('url ', url);
-
-
 	return fetch(url, data)
 		.then(function(response) {
 			return response.json();
@@ -29,12 +26,13 @@ const appFetch = (endpoint, method, body) => {
 
 
 export const register = (userName) => {
+	console.log(DeviceInfo.getUniqueID());
 	const body = {
-		managerID: 'abc',
+		managerID: '123',
 		name: userName,
 		id: DeviceInfo.getUniqueID(),
 	};
-	appFetch('/user.php', 'POST', body).then(response => {console.log('user.php: ', response)})
+	appFetch('/user.php', 'POST', body).then(response => {console.log('user.php: ', response, ' ', new Date())})
 };
 
 export const sendLocation = (lattitude, longitude) => {
@@ -43,11 +41,11 @@ export const sendLocation = (lattitude, longitude) => {
 		lattitude,
 		longitude
 	};
-	appFetch('/location.php','POST', body).then(response => {console.log('location.php: ', response)})
+	appFetch('/location.php','POST', body).then(response => {console.log('location.php: ', response, ' ', new Date())})
 };
 
 export const getLatestPositions = () => {
-	return appFetch('/locations/last.php?managerID=abc','GET');
+	return appFetch('/locations/last.php?managerID=123','GET');
 };
 
 
