@@ -56,5 +56,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>big brother wants to know your location</string>
 </dict>
 </plist>
