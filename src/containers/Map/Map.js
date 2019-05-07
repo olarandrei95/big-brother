@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { PermissionsAndroid, Platform, View } from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import { Platform, View } from 'react-native';
 import MapView, {
   Marker,
   PROVIDER_GOOGLE,
   PROVIDER_DEFAULT,
   Polygon
 } from 'react-native-maps';
-import DeviceInfo from 'react-native-device-info';
 
 import type { Employee, Coordinate } from '../../types';
-import { register, sendLocation } from '../../http';
 
 import DragableView from '../../components/DragableView';
 

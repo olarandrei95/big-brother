@@ -36,7 +36,7 @@ export const register = (userName) => {
 		name: userName,
 		id: DeviceInfo.getUniqueID(),
 	};
-	// appFetch('/user.php', 'POST', body)
+	appFetch('/user.php', 'POST', body)
 };
 
 export const sendLocation = (lattitude, longitude) => {
@@ -45,11 +45,11 @@ export const sendLocation = (lattitude, longitude) => {
 		lattitude,
 		longitude
 	};
-	// appFetch('/location.php','POST', body)
+	appFetch('/location.php','POST', body)
 };
 
 export const getLatestPositions = () => {
-	return appFetch('/locations/last.php?managerID=9998','GET');
+	return appFetch('/locations/last.php?managerID=abc','GET');
 };
 
 

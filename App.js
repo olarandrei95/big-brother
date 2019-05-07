@@ -32,6 +32,14 @@ export default class App extends Component<Props, State> {
 }
 
 componentDidMount() {
+
+	this.tryToGetLocation();
+	this.getEmployees();
+	setInterval(this.tryToGetLocation, 60000);
+	setInterval(this.getEmployees, 60000);
+}
+
+tryToGetLocation() {
 	if (this.isAndroid) {
 		const hasLocationPermission = PermissionsAndroid.request(
 			PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -47,11 +55,13 @@ componentDidMount() {
 	} else {
 		this.onLocationGranted();
 	}
+}
 
+getEmployees() {
 	getLatestPositions()
-		.then(resones => {
+		.then(response => {
 
-			const employees = resones.users.map(user => (
+			const employees = response.users.map(user => (
 				{
 					name: user.name,
 					coordinate: {
