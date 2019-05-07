@@ -92,8 +92,8 @@ class Map extends Component<Props, State> {
             { latitude: 60.169089, longitude: 24.935797 },
             { latitude: 60.168702, longitude: 24.934703 },
           ]}
-          strokeColor="#F00"
-          fillColor="rgba(255,0,0,0.5)"
+          strokeColor="rgba(108,164,200)"
+          fillColor="rgba(135,206,250, 0.6)"
           strokeWidth={1}
         />
 			</MapView>
