@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from 'react';
 import {
   Platform,
@@ -17,14 +9,7 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DeviceInfo from 'react-native-device-info';
-import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu'
-});
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 type Props = {};
 
@@ -53,8 +38,6 @@ export default class App extends Component<Props> {
   }
 
   onLocationGranted() {
-    console.log('here');
-
     Geolocation.getCurrentPosition(
       position => {
         this.setState({
@@ -71,10 +54,9 @@ export default class App extends Component<Props> {
 
   render() {
     const uniqueId = DeviceInfo.getUniqueID();
-    console.log(this.state);
     return (
       <MapView
-          key="mymapview"
+        key="mymapview"
         style={{ flex: 1 }}
         provider={PROVIDER_GOOGLE}
         region={{
@@ -84,13 +66,13 @@ export default class App extends Component<Props> {
           longitudeDelta: 0.05
         }}
       >
-		  <Marker
-			coordinate={{
-				latitude: this.state.latitude,
-				longitude: this.state.longitude,
-			}}
-		/>
-	  </MapView>
+        <Marker
+          coordinate={{
+            latitude: this.state.latitude,
+            longitude: this.state.longitude
+          }}
+        />
+      </MapView>
     );
   }
 }
