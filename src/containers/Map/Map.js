@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, View, FlatList } from 'react-native';
+import { Platform, View, FlatList, Text, TouchableOpacity } from 'react-native';
 import MapView, {
   Marker,
   PROVIDER_GOOGLE,
@@ -23,6 +23,11 @@ class Map extends Component<Props> {
 
     this.isAndroid = Platform.OS === 'android';
 
+    this.state = {
+      latitude: this.props.coordinate.latitude,
+      longitude: this.props.coordinate.longitude
+    };
+
     this.polygon = [
       { latitude: 60.168994, longitude: 24.934275 },
       { latitude: 60.169366, longitude: 24.935413 },
@@ -35,7 +40,18 @@ class Map extends Component<Props> {
   }
 
   renderItem({ item }) {
-    return <EmployeeItem employee={item} polygon={this.polygon} />;
+    return (
+      <EmployeeItem
+        employee={item}
+        polygon={this.polygon}
+        onEmployeeCheck={coordinates => {
+          this.setState({
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude
+          });
+        }}
+      />
+    );
   }
 
   render() {
@@ -44,6 +60,7 @@ class Map extends Component<Props> {
       <View style={{ flex: 1 }}>
         <MapView
           key="mymapview"
+          ref={ref => (this.map = ref)}
           style={{
             position: 'absolute',
             top: 0,
@@ -53,11 +70,12 @@ class Map extends Component<Props> {
           }}
           provider={this.isAndroid ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
           initialRegion={{
-            latitude: this.props.coordinate.latitude,
-            longitude: this.props.coordinate.longitude,
+            latitude: this.state.latitude,
+            longitude: this.state.longitude,
             latitudeDelta: 0.04,
             longitudeDelta: 0.05
           }}
+          showsMyLocationButton
         >
           {this.props.employees.map(employee => (
             <Marker
@@ -85,6 +103,32 @@ class Map extends Component<Props> {
             keyExtractor={item => item.id.toString()}
           />
         </DragableView>
+
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            top: 30,
+            right: 30,
+            alignItems: 'center',
+            backgroundColor: '#A9A9A9',
+            padding: 10,
+            borderRadius: 50,
+            zIndex: 999
+          }}
+          onPress={() => {
+            this.map.animateToRegion(
+              {
+                latitude: this.props.coordinate.latitude,
+                longitude: this.props.coordinate.longitude,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.05
+              },
+              1000
+            );
+          }}
+        >
+          <Text style={{ fontSize: 14, color: 'white' }}>Re-center</Text>
+        </TouchableOpacity>
       </View>
     );
   }

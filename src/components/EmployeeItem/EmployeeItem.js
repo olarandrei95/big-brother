@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import type { Employee } from '../../types';
 
 type Props = {
   employee: Employee,
-  polygon: Array<*>
+  polygon: Array<*>,
+  onEmployeeCheck: Function
 };
 
 class EmployeeItem extends Component<Props> {
@@ -53,7 +54,12 @@ class EmployeeItem extends Component<Props> {
 
   render() {
     return (
-      <View style={{ paddingHorizontal: 16, paddingVertical: 10 }}>
+      <TouchableOpacity
+        style={{ paddingHorizontal: 16, paddingVertical: 10 }}
+        onPress={() =>
+          this.props.onEmployeeCheck(this.props.employee.coordinate)
+        }
+      >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View
             style={{
@@ -67,7 +73,7 @@ class EmployeeItem extends Component<Props> {
             {this.props.employee.name}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
