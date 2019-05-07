@@ -10,6 +10,7 @@ import Geolocation from "react-native-geolocation-service";
 type Props = {};
 
 type State = {
+  employees: Array<Employee>,
   latitude : 0,
   longitude : 0
 };
@@ -27,7 +28,10 @@ export default class App extends Component<Props, State> {
 
 
     this.state = {
-      employees: [
+      employees: []
+    };
+
+    const tmpEmployees = [
         {
           name: 'Alex',
           id: 'aaa',
@@ -48,11 +52,16 @@ export default class App extends Component<Props, State> {
           id: 'ddd',
           coordinate: { latitude: 60.2, longitude: 24.935047 }
         }
-      ]
-    };
-    getLatestPositions();
-    register();
+        ];
 
+    register();
+    /*
+    getLatestPositions()
+        .then(resones => {
+          this.setState({employees: tmpEmployees })
+        });
+    */
+    this.setState({employees: tmpEmployees })
   }
 
 
@@ -82,7 +91,7 @@ export default class App extends Component<Props, State> {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
           });
-          sendLocation(123, 321);
+          sendLocation(position.coords.longitude, position.coords.latitude);
         },
         error => {
           console.log(error.code, error.message);
