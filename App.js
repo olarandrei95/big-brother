@@ -12,12 +12,50 @@ import DeviceInfo from 'react-native-device-info';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 
 type Props = {};
+type State = {
+    employees: Array<Employee>,
+    latitude: 0,
+    longitude: 0
+}
 
-export default class App extends Component<Props> {
+type Coordinate = {
+    latitude: number,
+    longitude: number
+}
+
+
+type Employee = {
+    name: string,
+    id: string,
+    coordinate: Coordinate
+}
+
+export default class App extends Component<Props, State> {
   constructor(props) {
     super(props);
-
     this.state = {
+        employees: [
+            {
+                name: 'Alex',
+                id: 'aaa',
+                coordinate: {latitude: 60.17, longitude: 24.935047}
+            },
+            {
+                name: 'Andrei',
+                id: 'bbb',
+                coordinate: {latitude: 60.18, longitude: 24.935047}
+            },
+            {
+                name: 'Harry',
+                id: 'ccc',
+                coordinate: {latitude: 60.19, longitude: 24.935047}
+            },
+            {
+                name: 'Tuomas',
+                id: 'ddd',
+                coordinate: {latitude: 60.20, longitude: 24.935047}
+            }
+            ],
       latitude: 0,
       longitude: 0
     };
@@ -66,12 +104,14 @@ export default class App extends Component<Props> {
           longitudeDelta: 0.05
         }}
       >
-        <Marker
-          coordinate={{
-            latitude: this.state.latitude,
-            longitude: this.state.longitude
-          }}
-        />
+          {this.state.employees.map(employee => (
+              <Marker
+                  coordinate={{
+                      latitude: employee.coordinate.latitude,
+                      longitude: employee.coordinate.longitude
+                  }}
+              />
+          ))}
       </MapView>
     );
   }
