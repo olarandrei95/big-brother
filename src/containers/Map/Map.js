@@ -133,8 +133,8 @@ class Map extends Component<Props> {
               {
                 latitude: this.props.coordinate.latitude,
                 longitude: this.props.coordinate.longitude,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA
+                latitudeDelta: 0.05,
+                longitudeDelta: 0.05
               },
               1000
             );
