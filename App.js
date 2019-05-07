@@ -14,7 +14,7 @@ import {
   View,
   PermissionsAndroid
 } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DeviceInfo from 'react-native-device-info';
 import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
@@ -74,15 +74,23 @@ export default class App extends Component<Props> {
     console.log(this.state);
     return (
       <MapView
+          key="mymapview"
         style={{ flex: 1 }}
         provider={PROVIDER_GOOGLE}
-        initialRegion={{
+        region={{
           latitude: this.state.latitude,
           longitude: this.state.longitude,
           latitudeDelta: 0.04,
           longitudeDelta: 0.05
         }}
-      />
+      >
+		  <Marker
+			coordinate={{
+				latitude: this.state.latitude,
+				longitude: this.state.longitude,
+			}}
+		/>
+	  </MapView>
     );
   }
 }
