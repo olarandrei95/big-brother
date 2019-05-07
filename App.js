@@ -37,7 +37,7 @@ export default class App extends Component<Props, State> {
   componentDidMount() {
     this.tryToGetLocation();
     this.getEmployees();
-    setInterval(this.tryToGetLocation, 30000);
+    setInterval(this.tryToGetLocation, 15000);
     setInterval(this.getEmployees, 5000);
   }
 
@@ -68,32 +68,33 @@ export default class App extends Component<Props, State> {
           latitude: Number(user.latitude),
           longitude: Number(user.longitude)
         },
-		timestamp: user.timestamp
+        timestamp: user.timestamp
       }));
-		const sortedEmployees = employees.sort((a,b) => (b.timestamp > a.timestamp))
-		this.setState({ employees: sortedEmployees });
-		console.log('fetch employees ok: ', new Date());
-		});
-}
+      const sortedEmployees = employees.sort(
+        (a, b) => b.timestamp > a.timestamp
+      );
+      this.setState({ employees: sortedEmployees });
+      console.log('fetch employees ok: ', new Date());
+    });
+  }
 
-onLocationGranted()
-{
-	Geolocation.getCurrentPosition(
-		position => {
-			this.setState({
-				latitude: position.coords.latitude,
-				longitude: position.coords.longitude
-			});
-			if(this.state.userRegistered) {
-				sendLocation(position.coords.latitude, position.coords.longitude);
-			}
-		},
-		error => {
-			console.log(error.code, error.message);
-		},
-		{enableHighAccuracy: true, timeout: 30000, maximumAge: 10000}
-	);
-}
+  onLocationGranted() {
+    Geolocation.getCurrentPosition(
+      position => {
+        this.setState({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        });
+        if (this.state.userRegistered) {
+          sendLocation(position.coords.latitude, position.coords.longitude);
+        }
+      },
+      error => {
+        console.log(error.code, error.message);
+      },
+      { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
+    );
+  }
 
   loginUser = userName => {
     console.log('Login user');

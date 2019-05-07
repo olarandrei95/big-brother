@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Platform, View, FlatList, Text, TouchableOpacity } from 'react-native';
+import {
+  Platform,
+  View,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  Dimensions
+} from 'react-native';
 import MapView, {
   Marker,
   PROVIDER_GOOGLE,
@@ -16,6 +23,13 @@ type Props = {
   employees: Array<Employee>,
   coordinate: Coordinate
 };
+
+const { width, height } = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+
+const LATITUDE_DELTA = 0.001;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 class Map extends Component<Props> {
   constructor(props) {
@@ -44,8 +58,8 @@ class Map extends Component<Props> {
             {
               latitude: coordinates.latitude,
               longitude: coordinates.longitude,
-              latitudeDelta: 0.04,
-              longitudeDelta: 0.05
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA
             },
             1000
           );
@@ -119,8 +133,8 @@ class Map extends Component<Props> {
               {
                 latitude: this.props.coordinate.latitude,
                 longitude: this.props.coordinate.longitude,
-                latitudeDelta: 0.04,
-                longitudeDelta: 0.05
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA
               },
               1000
             );
