@@ -20,7 +20,7 @@ class DragableView extends Component<Props> {
       touched: false
     };
 
-    this.initialDrawerSize = SCREEN_HEIGHT * (1 - Math.abs(0.2));
+    this.initialDrawerSize = SCREEN_HEIGHT * (1 - Math.abs(0.25));
     this.maxDrawerSize = SCREEN_HEIGHT * (1 - Math.abs(0.5));
 
     this.top = new Animated.Value(this.initialDrawerSize);
@@ -72,8 +72,24 @@ class DragableView extends Component<Props> {
           onPressIn={() => this.setState({ touched: true })}
           onPressOut={() => this.setState({ touched: false })}
         >
-          <View style={{ flex: 1 }}>{this.props.children}</View>
+          <View
+            style={{
+              height: 20,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <View
+              style={{
+                width: 40,
+                height: 10,
+                borderRadius: 10,
+                backgroundColor: 'gray'
+              }}
+            />
+          </View>
         </TouchableWithoutFeedback>
+        <View style={{ flex: 1 }}>{this.props.children}</View>
       </Animated.View>
     );
   }
