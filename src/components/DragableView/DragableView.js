@@ -42,12 +42,12 @@ class DragableView extends Component<Props> {
     const isGoingUp = gestureState.vy < 0;
     const position = gestureState.moveY - SCREEN_HEIGHT * 0.05;
 
-    if (
+    /* if (
       (!isGoingUp && position > this.initialDrawerSize) ||
       (isGoingUp && position < this.maxDrawerSize)
     ) {
       return;
-    }
+    } */
 
     this.top.setValue(position);
   }
