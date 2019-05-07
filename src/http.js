@@ -28,7 +28,7 @@ const appFetch = (endpoint, method, body) => {
 export const register = (userName) => {
 	console.log(DeviceInfo.getUniqueID());
 	const body = {
-		managerID: '123',
+		managerID: 123,
 		name: userName,
 		id: DeviceInfo.getUniqueID(),
 	};
