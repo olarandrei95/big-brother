@@ -5,7 +5,8 @@ import {
     Text,
     Button,
     TextInput,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity
   } from 'react-native';
 
 type Props = {
@@ -24,7 +25,7 @@ class Login extends Component<Props> {
 
     render() {
         return (
-            <View style={{flex: 1, marginHorizontal: 36, flexDirection: 'column', justifyContent: 'center'}}>
+        <View style={{flex: 1, marginHorizontal: 36, flexDirection: 'column', justifyContent: 'center'}}>
             <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
               <Text style={styles.titleText}>Big Brother App</Text>
             </View>
@@ -34,7 +35,9 @@ class Login extends Component<Props> {
                 placeholder="Please enter your name..."
                 onChangeText={(userName) => this.setState({userName})}
               />
-              <Button title="Continue" style={styles.button} onPress={() => this.props.onPress(this.state.userName)}/>
+              <TouchableOpacity style={styles.container} onPress={() => this.props.onPress(this.state.userName)}>
+                <Text styles={styles.text}>Continue</Text>
+              </TouchableOpacity>
             </View>
           </View>
         )
@@ -42,24 +45,33 @@ class Login extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    button: {
-      backgroundColor: 'blue',
-      borderColor: 'white',
-      borderWidth: 1,
-      borderRadius: 12,
-      color: 'white',
-      fontSize: 32,
-      fontWeight: 'bold',
-      overflow: 'hidden',
-      padding: 12,
-      textAlign:'center',
-      height: 50
-    },
-    titleText: {
-      fontSize: 36,
-      fontWeight: 'bold',
-      marginVertical: 120
-    },
+    topContainer: {
+        flex: 1,
+        backgroundColor: "#FFFFFF",
+        alignItems: "center",
+        justifyContent: "space-between"
+      },
+    container: {
+        width: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#428AF8",
+        marginBottom: 12,
+        paddingVertical: 12,
+        borderRadius: 4,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: "rgba(255,255,255,0.7)",
+      },
+      text: {
+        color: "#FFFFFF",
+        textAlign: "center",
+        height: 20
+      },
+        titleText: {
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginVertical: 120
+        }
   });
 
   export default Login;
