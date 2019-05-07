@@ -110,6 +110,7 @@ export default class App extends Component<Props, State> {
                       latitude: employee.coordinate.latitude,
                       longitude: employee.coordinate.longitude
                   }}
+                  title={employee.name}
               />
           ))}
       </MapView>
