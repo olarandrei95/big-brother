@@ -25,10 +25,13 @@ export default class App extends Component<Props, State> {
 
 		this.state = {
 			latitude: 0,
-      longitude: 0,
-      employees: [],
-      userRegistered: false
+			longitude: 0,
+			employees: [],
+			userRegistered: false
 		};
+
+		this.tryToGetLocation= this.tryToGetLocation.bind(this);
+		this.getEmployees= this.getEmployees.bind(this);
 }
 
 componentDidMount() {
