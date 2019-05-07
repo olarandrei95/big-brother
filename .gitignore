@@ -56,4 +56,4 @@ buck-out/
 *.jsbundle
 
 #do not expose api keys
-AndroidManifest.xml
+android/app/src/main/AndroidManifest.xml
