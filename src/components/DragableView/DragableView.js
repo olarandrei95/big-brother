@@ -33,7 +33,7 @@ class DragableView extends Component<Props> {
         this.moveDrawerView(gestureState);
       },
       onPanResponderRelease: (evt, gestureState) => {
-        this.moveFinished(evt, gestureState);
+        this.moveFinished(gestureState);
       }
     });
   }
@@ -52,7 +52,7 @@ class DragableView extends Component<Props> {
     this.top.setValue(position);
   }
 
-  moveFinished(event, gestureState) {
+  moveFinished(gestureState) {
     const isGoingUp = gestureState.vy < 0;
 
     if (isGoingUp) {
@@ -72,9 +72,7 @@ class DragableView extends Component<Props> {
           onPressIn={() => this.setState({ touched: true })}
           onPressOut={() => this.setState({ touched: false })}
         >
-          <View style={{ flex: 1 }}>
-            <Text>Content</Text>
-          </View>
+          <View style={{ flex: 1 }}>{this.props.children}</View>
         </TouchableWithoutFeedback>
       </Animated.View>
     );
