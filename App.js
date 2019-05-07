@@ -59,31 +59,6 @@ export default class App extends Component<Props, State> {
     }
   }
 
-  componentDidMount() {
-    this.tryToGetLocation();
-    this.getEmployees();
-    setInterval(this.tryToGetLocation, 60000);
-    setInterval(this.getEmployees, 60000);
-  }
-
-  tryToGetLocation() {
-    if (this.isAndroid) {
-      const hasLocationPermission = PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'Big Brother wants to know your location',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK'
-        }
-      )
-        .then(() => this.onLocationGranted())
-        .catch(err => console.log(err));
-    } else {
-      this.onLocationGranted();
-    }
-  }
-
   getEmployees() {
     getLatestPositions().then(response => {
       const employees = response.users.map(user => ({
