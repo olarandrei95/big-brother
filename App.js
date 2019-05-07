@@ -109,8 +109,8 @@ onLocationGranted()
       <Map
         employees={this.state.employees}
         coordinate={{
-          latitude: this.state.latitude || 0,
-          longitude: this.state.longitude || 0
+          latitude: 60.1691224,
+          longitude: 24.935047
         }}
       />
     );
