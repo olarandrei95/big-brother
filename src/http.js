@@ -12,16 +12,17 @@ const appFetch = (endpoint, method, body) => {
 			body: JSON.stringify(body)
 		}
 	}
-	const url = `http://vecinulvirtual.ro/bigbrother${endpoint}`
+	const url = `http://vecinulvirtual.ro/bigbrother${endpoint}`;
 	console.log('endpoint ', endpoint);
 	console.log('data ', data);
 	console.log('url ', url);
 
 
-	fetch(url, data)
+	return fetch(url, data)
 		.then(function(response) {
 			return response.json();
 		})
+		//.then(json => (json))
 		.catch(e => {
 			console.log('error ', e);
 	})
@@ -43,11 +44,11 @@ export const sendLocation = (lattitude, longitude) => {
 		lattitude,
 		longitude
 	};
-	appFetch('/location.php','POST', body)
+	// appFetch('/location.php','POST', body)
 };
 
 export const getLatestPositions = () => {
-	//return appFetch('/locations/last.php','GET')
+	return appFetch('/locations/last.php?managerID=1232','GET');
 };
 
 

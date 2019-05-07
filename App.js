@@ -10,101 +10,89 @@ import Geolocation from 'react-native-geolocation-service';
 type Props = {};
 
 type State = {
-  employees: Array<Employee>,
-  latitude: 0,
-  longitude: 0
+	employees : Array<Employee>,
+	latitude : 0,
+	longitude : 0
 };
 
 export default class App extends Component<Props, State> {
-  constructor(props) {
-    super(props);
-    this.isAndroid = Platform === 'Android';
+	constructor(props) {
+		super(props);
+		this.isAndroid = Platform === 'Android';
 
-    this.state = {
-      latitude: 0,
-      longitude: 0
-    };
+		this.state = {
+			latitude: 0,
+			longitude: 0
+		};
 
-    this.state = {
-      employees: []
-    };
+		this.state = {
+			employees: []
+		};
 
-    const tmpEmployees = [
-      {
-        name: 'Alex',
-        id: 'aaa',
-        coordinate: { latitude: 60.17, longitude: 24.935047 }
-      },
-      {
-        name: 'Andrei',
-        id: 'bbb',
-        coordinate: { latitude: 60.18, longitude: 24.935047 }
-      },
-      {
-        name: 'Harry',
-        id: 'ccc',
-        coordinate: { latitude: 60.19, longitude: 24.935047 }
-      },
-      {
-        name: 'Tuomas',
-        id: 'ddd',
-        coordinate: { latitude: 60.2, longitude: 24.935047 }
-      }
-    ];
+		register();
+}
 
-    register();
-    /*
-    getLatestPositions()
-        .then(resones => {
-          this.setState({employees: tmpEmployees })
-        });
-    */
-    this.setState({ employees: tmpEmployees });
-  }
+componentDidMount() {
+	if (this.isAndroid) {
+		const hasLocationPermission = PermissionsAndroid.request(
+			PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+			{
+				title: 'Location Permission',
+				message: 'Big Brother wants to know your location',
+				buttonNegative: 'Cancel',
+				buttonPositive: 'OK'
+			}
+		)
+			.then(() => this.onLocationGranted())
+			.catch(err => console.log(err));
+	} else {
+		this.onLocationGranted();
+	}
 
-  componentDidMount() {
-    if (this.isAndroid) {
-      const hasLocationPermission = PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Location Permission',
-          message: 'Big Brother wants to know your location',
-          buttonNegative: 'Cancel',
-          buttonPositive: 'OK'
-        }
-      )
-        .then(() => this.onLocationGranted())
-        .catch(err => console.log(err));
-    } else {
-      this.onLocationGranted();
-    }
-  }
+	getLatestPositions()
+		.then(resones => {
 
-  onLocationGranted() {
-    Geolocation.getCurrentPosition(
-      position => {
-        this.setState({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude
-        });
-        sendLocation(position.coords.longitude, position.coords.latitude);
-      },
-      error => {
-        console.log(error.code, error.message);
-      },
-      { enableHighAccuracy: true, timeout: 30000, maximumAge: 10000 }
-    );
-  }
+			const employees = resones.users.map(user => (
+				{
+					name: user.name,
+					coordinate: {
+						latitude: Number(user.latitude),
+						longitude: Number(user.longitude)
+					}
+				}
+			));
 
-  render() {
-    return (
-      <Map
-        employees={this.state.employees}
-        coordinate={{
-          latitude: this.state.latitude || 0,
-          longitude: this.state.longitude || 0
-        }}
-      />
-    );
-  }
+			this.setState({ employees })
+		});
+}
+
+onLocationGranted()
+{
+	Geolocation.getCurrentPosition(
+		position => {
+			this.setState({
+				latitude: position.coords.latitude,
+				longitude: position.coords.longitude
+			});
+			sendLocation(position.coords.longitude, position.coords.latitude);
+		},
+		error => {
+			console.log(error.code, error.message);
+		},
+		{enableHighAccuracy: true, timeout: 30000, maximumAge: 10000}
+	);
+}
+
+render()
+{
+	return (
+		<Map
+			employees={this.state.employees}
+			coordinate={{
+				latitude: this.state.latitude || 0,
+				longitude: this.state.longitude || 0
+			}}
+		/>
+	);
+}
 }
