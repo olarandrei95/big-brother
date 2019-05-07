@@ -1,0 +1,55 @@
+import DeviceInfo from 'react-native-device-info';
+
+const appFetch = (endpoint, method, body) => {
+
+	let data =  {
+		method: method,
+		headers: { "Content-Type": "application/json" },
+	};
+	if(body) {
+		data = {
+			...data,
+			body: JSON.stringify(body)
+		}
+	}
+	const url = `http://vecinulvirtual.ro/bigbrother${endpoint}`
+	console.log('endpoint ', endpoint);
+	console.log('data ', data);
+	console.log('url ', url);
+
+
+	fetch(url, data)
+		.then(function(response) {
+			return response.json();
+		})
+		.then(function(myJson) {
+			console.log(JSON.stringify(myJson));
+		}).catch(e => {
+		console.error('error ', e);
+	})
+
+};
+
+
+export const register = () => {
+	const body = {
+		name: "Harry",
+		id: DeviceInfo.getUniqueID(),
+	};
+	// appFetch('/user.php', 'POST', body)
+};
+
+export const sendLocation = (lattitude, longitude) => {
+	const body = {
+		userID: DeviceInfo.getUniqueID(),
+		lattitude,
+		longitude
+	};
+	// appFetch('/location.php','POST', body)
+};
+
+export const getLatestPositions = () => {
+	// appFetch('/locations/last.php','GET')
+};
+
+
